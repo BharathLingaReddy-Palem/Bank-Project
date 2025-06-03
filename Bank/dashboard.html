@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Modern Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .profile-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .balance-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .transaction-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">Modern Bank</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-4">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-user-circle fa-4x mb-3"></i>
+                        <h4 id="profileName">Loading...</h4>
+                        <p id="profileEmail" class="mb-0">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Balance Card -->
+                <div class="balance-card">
+                    <h5>Current Balance</h5>
+                    <h2 id="currentBalance" class="mb-0">₹0.00</h2>
+                </div>
+
+                <!-- Transfer Form -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Transfer Money</h5>
+                        <form id="transferForm">
+                            <div class="mb-3">
+                                <label for="receiver_email" class="form-label">Recipient Email</label>
+                                <input type="email" class="form-control" id="receiver_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Amount (₹)</label>
+                                <input type="number" class="form-control" id="amount" min="1" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Send Money</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-8">
+                <!-- Budget Overview -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Monthly Income</h6>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 id="totalIncome" class="mb-0 text-success">₹0</h3>
+                                    <button class="btn btn-sm btn-outline-success" onclick="editIncome()">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Monthly Expenses</h6>
+                                <h3 id="totalExpenses" class="mb-0 text-danger">₹0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Monthly Savings</h6>
+                                <h3 id="totalSavings" class="mb-0 text-primary">₹0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expense Tracker -->
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">Budget Breakdown</h5>
+                                    <button class="btn btn-outline-danger btn-sm" onclick="resetBudget()">
+                                        <i class="fas fa-redo-alt me-1"></i>Reset Budget
+                                    </button>
+                                </div>
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Add Expense</h5>
+                                <form id="expenseForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-select" id="expenseCategory">
+                                            <option value="">Select category</option>
+                                            <option value="Transfer">Transfer</option>
+                                            <option value="Bills">Bills</option>
+                                            <option value="Shopping">Shopping</option>
+                                            <option value="Food">Food</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Amount (₹)</label>
+                                        <input type="number" class="form-control" id="expenseAmount" placeholder="Enter amount in rupees">
+                                    </div>
+                                    <button type="button" class="btn btn-primary w-100" onclick="addExpense()">Add Expense</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Goal -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Savings Goal</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Current: <span id="currentSavings">$0</span></span>
+                                    <span>Goal: <span id="savingsGoal">$0</span></span>
+                                </div>
+                                <div class="progress">
+                                    <div id="savingsGoalProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction Analytics -->
+                <div class="chart-container mb-4">
+                    <h5>Transaction Analytics</h5>
+                    <canvas id="transactionChart"></canvas>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="transaction-card">
+                    <h5 class="mb-4">Transaction History</h5>
+                    <div class="table-responsive">
+                        <table class="table" id="transactionTable">
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Other Party</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Transactions will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notificationToast" class="toast align-items-center text-white bg-success" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="notificationMessage"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/budget-tracker.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initBudgetTracker();
+            initSavingsGoal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Bank - Your Trusted Banking Partner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #4CAF50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1601597111158-2fceff292cdc?ixlib=rb-4.0.3') center/cover;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            border: none;
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            color: var(--accent-color);
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stats-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .quick-link-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .quick-link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .testimonial-card {
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 20px 0;
+        }
+
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-box {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-box.active {
+            display: flex;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            margin-left: auto;
+        }
+
+        .message.support {
+            margin-right: auto;
+        }
+
+        .message-content {
+            padding: 10px 15px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .message-time {
+            display: block;
+            margin-top: 5px;
+            color: #6c757d;
+            font-size: 0.75rem;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .news-card {
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .app-preview {
+            position: relative;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            overflow: hidden;
+        }
+
+        .app-screenshot {
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .app-screenshot:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon-small {
+            width: 50px;
+            height: 50px;
+            background: rgba(var(--primary-color-rgb), 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-landmark me-2"></i>
+                <strong>Modern Bank</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary ms-2" href="register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center hero-content">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Banking Made Simple</h1>
+                    <p class="lead mb-4">Experience the future of banking with our modern digital solutions. Secure, fast, and always available.</p>
+                    <a href="register.html" class="btn btn-light btn-lg me-3">Get Started</a>
+                    <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?ixlib=rb-4.0.3" alt="Banking" class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Why Choose Modern Bank?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card card p-4">
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h4>Secure Banking</h4>
+                            <p>Bank with confidence knowing your money is protected by state-of-the-art security.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card p-4">
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <h4>Mobile Banking</h4>
+                            <p>Access your account anytime, anywhere with our user-friendly mobile banking.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card p-4">
+                        <div class="text-center">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <h4>Smart Analytics</h4>
+                            <p>Track your spending and manage your finances with intelligent insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <i class="fas fa-users mb-3 text-primary fa-2x"></i>
+                        <h3>10M+</h3>
+                        <p class="mb-0">Happy Customers</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <i class="fas fa-globe mb-3 text-primary fa-2x"></i>
+                        <h3>50+</h3>
+                        <p class="mb-0">Countries</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle mb-3 text-primary fa-2x"></i>
+                        <h3>99.9%</h3>
+                        <p class="mb-0">Success Rate</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <i class="fas fa-headset mb-3 text-primary fa-2x"></i>
+                        <h3>24/7</h3>
+                        <p class="mb-0">Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currency Converter Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Currency Converter</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-4" id="currency-converter">
+                            <div class="mb-3">
+                                <label class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="amount" placeholder="Enter amount">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label">From</label>
+                                    <select class="form-select" id="from-currency">
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="JPY">JPY</option>
+                                        <option value="INR">INR</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">To</label>
+                                    <select class="form-select" id="to-currency">
+                                        <option value="EUR">EUR</option>
+                                        <option value="USD">USD</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="JPY">JPY</option>
+                                        <option value="INR">INR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 mb-3" id="convert-btn">Convert</button>
+                            <div class="alert alert-success" id="conversion-result" role="alert">
+                                Select currencies and enter amount to convert
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loan Calculator Section -->
+    <!-- Enhanced Loan Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Comprehensive Loan Center</h2>
+            
+            <!-- Loan Types Tabs -->
+            <ul class="nav nav-pills mb-4 justify-content-center" id="loanTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#personalLoan">Personal Loan</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#homeLoan">Home Loan</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#autoLoan">Auto Loan</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#businessLoan">Business Loan</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#educationLoan">Education Loan</button>
+                </li>
+            </ul>
+
+            <!-- Loan Calculator and Comparison -->
+            <div class="row g-4">
+                <!-- Loan Calculator -->
+                <div class="col-md-6">
+                    <div class="card shadow h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Loan Calculator</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="loanTabContent">
+                                <!-- Personal Loan Calculator -->
+                                <div class="tab-pane fade show active" id="personalLoan">
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Amount</label>
+                                        <input type="number" class="form-control" id="loanAmount" placeholder="Enter loan amount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Interest Rate (% per year)</label>
+                                        <input type="number" class="form-control" id="interestRate" placeholder="Enter interest rate" step="0.1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Term (years)</label>
+                                        <input type="number" class="form-control" id="loanTerm" placeholder="Enter loan term">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Processing Fee (%)</label>
+                                        <input type="number" class="form-control" id="processingFee" placeholder="Enter processing fee" value="1">
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="calculateLoan()">Calculate</button>
+                                </div>
+
+                                <!-- Home Loan Calculator with similar structure but different default values -->
+                                <div class="tab-pane fade" id="homeLoan">
+                                    <!-- Similar structure with home-loan specific fields -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Property Value</label>
+                                        <input type="number" class="form-control" id="propertyValue" placeholder="Enter property value">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Down Payment (%)</label>
+                                        <input type="number" class="form-control" id="downPayment" placeholder="Enter down payment percentage" value="20">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Interest Rate (% per year)</label>
+                                        <input type="number" class="form-control" id="homeLoanInterest" placeholder="Enter interest rate" value="6.5" step="0.1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Term (years)</label>
+                                        <input type="number" class="form-control" id="homeLoanTerm" placeholder="Enter loan term" value="30">
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="calculateHomeLoan()">Calculate</button>
+                                </div>
+
+                                <!-- Auto Loan Calculator -->
+                                <div class="tab-pane fade" id="autoLoan">
+                                    <!-- Auto loan specific fields -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Vehicle Price</label>
+                                        <input type="number" class="form-control" id="vehiclePrice" placeholder="Enter vehicle price">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Down Payment (%)</label>
+                                        <input type="number" class="form-control" id="autoDownPayment" placeholder="Enter down payment percentage" value="10">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Interest Rate (% per year)</label>
+                                        <input type="number" class="form-control" id="autoLoanInterest" placeholder="Enter interest rate" value="4.5" step="0.1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Term (years)</label>
+                                        <input type="number" class="form-control" id="autoLoanTerm" placeholder="Enter loan term" value="5">
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="calculateAutoLoan()">Calculate</button>
+                                </div>
+
+                                <!-- Business Loan Calculator -->
+                                <div class="tab-pane fade" id="businessLoan">
+                                    <!-- Business loan specific fields -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Amount</label>
+                                        <input type="number" class="form-control" id="businessLoanAmount" placeholder="Enter loan amount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Interest Rate (% per year)</label>
+                                        <input type="number" class="form-control" id="businessLoanInterest" placeholder="Enter interest rate" value="8.5" step="0.1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Term (years)</label>
+                                        <input type="number" class="form-control" id="businessLoanTerm" placeholder="Enter loan term" value="7">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Collateral Value</label>
+                                        <input type="number" class="form-control" id="collateralValue" placeholder="Enter collateral value">
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="calculateBusinessLoan()">Calculate</button>
+                                </div>
+
+                                <!-- Education Loan Calculator -->
+                                <div class="tab-pane fade" id="educationLoan">
+                                    <!-- Education loan specific fields -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Amount</label>
+                                        <input type="number" class="form-control" id="educationLoanAmount" placeholder="Enter loan amount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Interest Rate (% per year)</label>
+                                        <input type="number" class="form-control" id="educationLoanInterest" placeholder="Enter interest rate" value="5.5" step="0.1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Loan Term (years)</label>
+                                        <input type="number" class="form-control" id="educationLoanTerm" placeholder="Enter loan term" value="10">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Grace Period (years)</label>
+                                        <input type="number" class="form-control" id="gracePeriod" placeholder="Enter grace period" value="4">
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="calculateEducationLoan()">Calculate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loan Results and Comparison -->
+                <div class="col-md-6">
+                    <div class="card shadow h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Loan Analysis</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Results Summary -->
+                            <div id="loanResults" class="mb-4">
+                                <h6 class="text-primary">Monthly Payment</h6>
+                                <h3 id="monthlyPayment" class="mb-3">$0.00</h3>
+                                
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <div class="p-3 border rounded">
+                                            <h6 class="text-muted">Total Interest</h6>
+                                            <h5 id="totalInterest" class="mb-0">$0.00</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="p-3 border rounded">
+                                            <h6 class="text-muted">Total Payment</h6>
+                                            <h5 id="totalPayment" class="mb-0">$0.00</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Repayment Schedule -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Repayment Schedule</h6>
+                                <div class="table-responsive" style="max-height: 300px;">
+                                    <table class="table table-sm table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Year</th>
+                                                <th>Principal</th>
+                                                <th>Interest</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="repaymentSchedule">
+                                            <!-- Filled dynamically by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Loan Comparison Chart -->
+                            <div>
+                                <h6 class="mb-3">Payment Breakdown</h6>
+                                <canvas id="loanChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Loan Information -->
+            <div class="row mt-4 g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Loan Requirements</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Age: 21-65 years</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Income proof</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Credit score check</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Identity verification</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Interest Rates</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-percentage text-primary me-2"></i>Personal: 8-15%</li>
+                                <li><i class="fas fa-percentage text-primary me-2"></i>Home: 6-8%</li>
+                                <li><i class="fas fa-percentage text-primary me-2"></i>Auto: 4-7%</li>
+                                <li><i class="fas fa-percentage text-primary me-2"></i>Education: 5-7%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Processing Time</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-clock text-warning me-2"></i>Personal: 2-3 days</li>
+                                <li><i class="fas fa-clock text-warning me-2"></i>Home: 7-14 days</li>
+                                <li><i class="fas fa-clock text-warning me-2"></i>Auto: 1-2 days</li>
+                                <li><i class="fas fa-clock text-warning me-2"></i>Education: 3-5 days</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+                    <div class="card shadow-lg">
+                        <div class="card-body p-4" id="loan-calculator">
+                            <div class="mb-3">
+                                <label class="form-label">Loan Amount ($)</label>
+                                <input type="number" class="form-control" id="loan-amount" placeholder="Enter loan amount">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Interest Rate (%)</label>
+                                <input type="number" class="form-control" id="interest-rate" placeholder="Enter annual interest rate">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Loan Tenure (Years)</label>
+                                <input type="number" class="form-control" id="loan-tenure" placeholder="Enter loan tenure">
+                            </div>
+                            <button class="btn btn-primary w-100 mb-3" id="calculate-btn">Calculate EMI</button>
+                            <div class="alert alert-info" id="emi-result" role="alert">
+                                Fill in the details to calculate your EMI
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-left mb-3 text-primary"></i>
+                        <p class="mb-4">"The best banking experience I've ever had. Modern Bank has made managing my finances so much easier."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Customer" class="rounded-circle me-3" width="50">
+                            <div>
+                                <h6 class="mb-0">John Smith</h6>
+                                <small class="text-muted">Business Owner</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-left mb-3 text-primary"></i>
+                        <p class="mb-4">"Incredible customer service and amazing mobile banking features. I couldn't be happier!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Customer" class="rounded-circle me-3" width="50">
+                            <div>
+                                <h6 class="mb-0">Sarah Johnson</h6>
+                                <small class="text-muted">Designer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-left mb-3 text-primary"></i>
+                        <p class="mb-4">"The security features give me peace of mind. Modern Bank is truly the future of banking."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Customer" class="rounded-circle me-3" width="50">
+                            <div>
+                                <h6 class="mb-0">Michael Brown</h6>
+                                <small class="text-muted">Engineer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Latest Financial News</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card news-card shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-4.0.3" class="news-image" alt="Banking News">
+                        <div class="card-body">
+                            <h5 class="card-title">Digital Banking Revolution</h5>
+                            <p class="card-text">Discover how digital transformation is reshaping the banking industry...</p>
+                            <a href="#" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card news-card shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?ixlib=rb-4.0.3" class="news-image" alt="Investment News">
+                        <div class="card-body">
+                            <h5 class="card-title">Smart Investment Strategies</h5>
+                            <p class="card-text">Learn about the latest trends in investment and wealth management...</p>
+                            <a href="#" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card news-card shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3" class="news-image" alt="Tech News">
+                        <div class="card-body">
+                            <h5 class="card-title">Future of FinTech</h5>
+                            <p class="card-text">Explore how technology is transforming financial services...</p>
+                            <a href="#" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Preview -->
+    <!-- Currency Converter -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Currency Converter</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="amount" placeholder="Enter amount">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">From</label>
+                                    <select class="form-select" id="fromCurrency">
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="JPY">JPY</option>
+                                        <option value="INR">INR</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">To</label>
+                                    <select class="form-select" id="toCurrency">
+                                        <option value="EUR">EUR</option>
+                                        <option value="USD">USD</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="JPY">JPY</option>
+                                        <option value="INR">INR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="convertCurrency()">Convert</button>
+                            <div class="mt-3 text-center" id="conversionResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Savings Goal Calculator -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Savings Goal Calculator</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Target Amount</label>
+                                <input type="number" class="form-control" id="targetAmount" placeholder="Enter your goal amount">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Monthly Savings</label>
+                                <input type="number" class="form-control" id="monthlySavings" placeholder="How much can you save monthly?">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Annual Interest Rate (%)</label>
+                                <input type="number" class="form-control" id="interestRate" placeholder="Expected interest rate" value="2.5">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="calculateSavingsGoal()">Calculate Time to Goal</button>
+                            <div class="mt-3 text-center" id="savingsResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Quick Banking</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="quick-link-card text-center p-4 bg-white rounded shadow-sm">
+                        <i class="fas fa-exchange-alt feature-icon"></i>
+                        <h5>Transfer Money</h5>
+                        <p class="mb-0">Quick and secure transfers</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="quick-link-card text-center p-4 bg-white rounded shadow-sm">
+                        <i class="fas fa-mobile-alt feature-icon"></i>
+                        <h5>Mobile Recharge</h5>
+                        <p class="mb-0">Instant phone top-up</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="quick-link-card text-center p-4 bg-white rounded shadow-sm">
+                        <i class="fas fa-file-invoice feature-icon"></i>
+                        <h5>Pay Bills</h5>
+                        <p class="mb-0">Hassle-free bill payments</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="quick-link-card text-center p-4 bg-white rounded shadow-sm">
+                        <i class="fas fa-piggy-bank feature-icon"></i>
+                        <h5>Fixed Deposits</h5>
+                        <p class="mb-0">Grow your savings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Customers Say</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4 bg-white rounded shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Customer" class="rounded-circle" width="60">
+                            <div class="ms-3">
+                                <h5 class="mb-0">Sarah Johnson</h5>
+                                <small class="text-muted">Small Business Owner</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The mobile banking app has made managing my business finances so much easier. Great service!"</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4 bg-white rounded shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Customer" class="rounded-circle" width="60">
+                            <div class="ms-3">
+                                <h5 class="mb-0">Michael Chen</h5>
+                                <small class="text-muted">Software Engineer</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The security features and instant notifications give me peace of mind with my transactions."</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card p-4 bg-white rounded shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Customer" class="rounded-circle" width="60">
+                            <div class="ms-3">
+                                <h5 class="mb-0">Emma Davis</h5>
+                                <small class="text-muted">Freelancer</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"Their savings goal calculator helped me plan my finances better. Highly recommended!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-preview">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Bank on the Go with Our Mobile App</h2>
+                    <p class="lead mb-4">Experience seamless banking with our feature-rich mobile application. Manage your finances anytime, anywhere.</p>
+                    
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="feature-icon-small">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h5>Secure Banking</h5>
+                                    <p class="mb-0">Bank with confidence using our secure mobile app</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="feature-icon-small">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h5>Quick Transfers</h5>
+                                    <p class="mb-0">Send money instantly to anyone, anywhere</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="feature-icon-small">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h5>Track Expenses</h5>
+                                    <p class="mb-0">Monitor your spending with detailed analytics</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="feature-icon-small">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h5>Instant Alerts</h5>
+                                    <p class="mb-0">Get notified about all transactions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-dark btn-lg">
+                            <i class="fab fa-google-play me-2"></i>Google Play
+                        </a>
+                        <a href="#" class="btn btn-dark btn-lg">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?ixlib=rb-4.0.3" class="img-fluid app-screenshot" alt="Mobile App">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>About Modern Bank</h5>
+                    <p>Your trusted banking partner for a secure and prosperous future. We're here to help you achieve your financial goals.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Services</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                        <li><a href="#" class="text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@modernbank.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Banking Street, NY</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Modern Bank. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" id="chat-button">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+        <div class="chat-box" id="chat-box">
+            <div class="chat-header">
+                <h5>Chat with Us</h5>
+                <button class="btn btn-light" id="close-chat-button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message support">
+                    <div class="message-content">
+                        <p>Hello! How can we assist you today?</p>
+                    </div>
+                    <small class="message-time">10:00 AM</small>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button class="btn" id="send-message-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let loanChart = null;
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        }
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12; // Monthly interest rate
+            const term = parseInt(document.getElementById('loanTerm').value) * 12; // Term in months
+            const processingFee = parseFloat(document.getElementById('processingFee').value) / 100 * amount;
+
+            if (isNaN(amount) || isNaN(rate) || isNaN(term)) {
+                alert('Please fill in all fields with valid numbers');
+                return;
+            }
+
+            // Calculate monthly payment using PMT formula
+            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+
+            updateResults(monthlyPayment, totalInterest, totalPayment);
+            generateRepaymentSchedule(amount, rate, term, monthlyPayment);
+            updateChart(amount, totalInterest, processingFee);
+        }
+
+        function calculateHomeLoan() {
+            const propertyValue = parseFloat(document.getElementById('propertyValue').value);
+            const downPaymentPercent = parseFloat(document.getElementById('downPayment').value) / 100;
+            const rate = parseFloat(document.getElementById('homeLoanInterest').value) / 100 / 12;
+            const term = parseInt(document.getElementById('homeLoanTerm').value) * 12;
+
+            const loanAmount = propertyValue * (1 - downPaymentPercent);
+            const monthlyPayment = (loanAmount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - loanAmount;
+
+            updateResults(monthlyPayment, totalInterest, totalPayment);
+            generateRepaymentSchedule(loanAmount, rate, term, monthlyPayment);
+            updateChart(loanAmount, totalInterest, propertyValue * 0.01); // 1% processing fee
+        }
+
+        function calculateAutoLoan() {
+            const vehiclePrice = parseFloat(document.getElementById('vehiclePrice').value);
+            const downPaymentPercent = parseFloat(document.getElementById('autoDownPayment').value) / 100;
+            const rate = parseFloat(document.getElementById('autoLoanInterest').value) / 100 / 12;
+            const term = parseInt(document.getElementById('autoLoanTerm').value) * 12;
+
+            const loanAmount = vehiclePrice * (1 - downPaymentPercent);
+            const monthlyPayment = (loanAmount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - loanAmount;
+
+            updateResults(monthlyPayment, totalInterest, totalPayment);
+            generateRepaymentSchedule(loanAmount, rate, term, monthlyPayment);
+            updateChart(loanAmount, totalInterest, vehiclePrice * 0.005); // 0.5% processing fee
+        }
+
+        function calculateBusinessLoan() {
+            const amount = parseFloat(document.getElementById('businessLoanAmount').value);
+            const rate = parseFloat(document.getElementById('businessLoanInterest').value) / 100 / 12;
+            const term = parseInt(document.getElementById('businessLoanTerm').value) * 12;
+            const collateral = parseFloat(document.getElementById('collateralValue').value);
+
+            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+            const processingFee = amount * 0.02; // 2% processing fee
+
+            updateResults(monthlyPayment, totalInterest, totalPayment);
+            generateRepaymentSchedule(amount, rate, term, monthlyPayment);
+            updateChart(amount, totalInterest, processingFee);
+        }
+
+        function calculateEducationLoan() {
+            const amount = parseFloat(document.getElementById('educationLoanAmount').value);
+            const rate = parseFloat(document.getElementById('educationLoanInterest').value) / 100 / 12;
+            const term = parseInt(document.getElementById('educationLoanTerm').value) * 12;
+            const gracePeriod = parseInt(document.getElementById('gracePeriod').value) * 12;
+
+            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+            const processingFee = amount * 0.01; // 1% processing fee
+
+            updateResults(monthlyPayment, totalInterest, totalPayment);
+            generateRepaymentSchedule(amount, rate, term, monthlyPayment);
+            updateChart(amount, totalInterest, processingFee);
+        }
+
+        function updateResults(monthlyPayment, totalInterest, totalPayment) {
+            document.getElementById('monthlyPayment').textContent = formatCurrency(monthlyPayment);
+            document.getElementById('totalInterest').textContent = formatCurrency(totalInterest);
+            document.getElementById('totalPayment').textContent = formatCurrency(totalPayment);
+        }
+
+        function generateRepaymentSchedule(principal, monthlyRate, term, monthlyPayment) {
+            const schedule = document.getElementById('repaymentSchedule');
+            schedule.innerHTML = '';
+            
+            let balance = principal;
+            let totalInterest = 0;
+            let yearlyData = {};
+
+            for (let month = 1; month <= term; month++) {
+                const interest = balance * monthlyRate;
+                const principalPaid = monthlyPayment - interest;
+                balance -= principalPaid;
+                totalInterest += interest;
+
+                const year = Math.ceil(month / 12);
+                if (!yearlyData[year]) {
+                    yearlyData[year] = {
+                        principal: 0,
+                        interest: 0,
+                        balance: balance
+                    };
+                }
+                yearlyData[year].principal += principalPaid;
+                yearlyData[year].interest += interest;
+                yearlyData[year].balance = balance;
+            }
+
+            // Display yearly summary
+            Object.keys(yearlyData).forEach(year => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${year}</td>
+                    <td>${formatCurrency(yearlyData[year].principal)}</td>
+                    <td>${formatCurrency(yearlyData[year].interest)}</td>
+                    <td>${formatCurrency(yearlyData[year].balance)}</td>
+                `;
+                schedule.appendChild(row);
+            });
+        }
+
+        function updateChart(principal, totalInterest, processingFee) {
+            const ctx = document.getElementById('loanChart').getContext('2d');
+            
+            if (loanChart) {
+                loanChart.destroy();
+            }
+
+            loanChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Total Interest', 'Processing Fee'],
+                    datasets: [{
+                        data: [principal, totalInterest, processingFee],
+                        backgroundColor: ['#1e3c72', '#4CAF50', '#FFC107']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+        function convertCurrency() {
+            const amount = document.getElementById('amount').value;
+            const from = document.getElementById('fromCurrency').value;
+            const to = document.getElementById('toCurrency').value;
+            
+            // Simple mock conversion (in real app, would use API)
+            const mockRates = {
+                'USD': 1,
+                'EUR': 0.85,
+                'GBP': 0.73,
+                'JPY': 110.0,
+                'INR': 74.5
+            };
+            
+            const result = (amount * mockRates[to] / mockRates[from]).toFixed(2);
+            document.getElementById('conversionResult').innerHTML = 
+                `<h4 class="mt-2">${amount} ${from} = ${result} ${to}</h4>`;
+        }
+
+        function calculateSavingsGoal() {
+            const target = parseFloat(document.getElementById('targetAmount').value);
+            const monthly = parseFloat(document.getElementById('monthlySavings').value);
+            const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+            
+            // Calculate months needed using compound interest formula
+            const months = Math.ceil(Math.log(1 + (target * rate) / monthly) / Math.log(1 + rate));
+            const years = Math.floor(months / 12);
+            const remainingMonths = months % 12;
+            
+            let resultText = `It will take `;
+            if (years > 0) resultText += `${years} year${years > 1 ? 's' : ''} `;
+            if (remainingMonths > 0) resultText += `and ${remainingMonths} month${remainingMonths > 1 ? 's' : ''} `;
+            resultText += `to reach your goal.`;
+            
+            document.getElementById('savingsResult').innerHTML = `<h4 class="mt-2">${resultText}</h4>`;
+        }
+    </script>
+    <script src="js/currency-converter.js"></script>
+    <script src="js/loan-calculator.js"></script>
+    <script src="js/chat-widget.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initCurrencyConverter();
+            initLoanCalculator();
+            initChatWidget();
+        });
+    </script>
+</body>
+</html>
